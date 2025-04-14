@@ -10,7 +10,7 @@ AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "https://localhost:5173")
 if not AUTH_SERVICE_URL.startswith(('http://', 'https://')):
     AUTH_SERVICE_URL = "http://" + AUTH_SERVICE_URL
 
-@server.route('/login', methods=['POST'])
+@server.route('/', methods=['GET'])
 def root():
     try:
         response = requests.get(f"{AUTH_SERVICE_URL}/")
