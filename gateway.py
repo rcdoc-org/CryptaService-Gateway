@@ -7,6 +7,8 @@ server = Flask(__name__)
 
 AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "https://localhost:5173")
 # AUTH_SERVICE_URL = 'https://localhost:5173'
+if not AUTH_SERVICE_URL.startswith(('http://', 'https://')):
+    AUTH_SERVICE_URL = "http://" + AUTH_SERVICE_URL
 
 @server.route('/login', methods=['POST'])
 def root():
