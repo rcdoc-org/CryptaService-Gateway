@@ -3,7 +3,7 @@ import requests
 from flask import Blueprint, request, Response, jsonify
 
 # Use the same auth-frontend service URL
-AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "http://auth-frontend:5173")
+AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL")
 if not AUTH_SERVICE_URL.startswith(('http://', 'https://')):
     AUTH_SERVICE_URL = "http://" + AUTH_SERVICE_URL
 

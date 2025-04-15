@@ -2,7 +2,7 @@ import os
 import requests
 from flask import Blueprint, jsonify
 
-AUTH_BACKEND_SERVICE_URL = os.getenv("AUTH_BACKEND_SERVICE_URL", "https://auth-backend:5000")
+AUTH_BACKEND_SERVICE_URL = os.getenv("AUTH_BACKEND_SERVICE_URL")
 if not AUTH_BACKEND_SERVICE_URL.startswith(('http://', 'https://')):
     AUTH_BACKEND_SERVICE_URL = "http://" + AUTH_BACKEND_SERVICE_URL
     
