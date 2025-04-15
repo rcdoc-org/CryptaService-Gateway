@@ -8,7 +8,7 @@ if not AUTH_BACKEND_SERVICE_URL.startswith(('http://', 'https://')):
     
 authBack_bp = Blueprint('authBack', __name__)
 
-@authBack_bp.route('/api/v1/user/register', methods='register')
+@authBack_bp.route('/api/v1/user/register', methods=['register'])
 def register():
     try:
         response = requests.post(f"{AUTH_BACKEND_SERVICE_URL}/api/v1/user/register")
