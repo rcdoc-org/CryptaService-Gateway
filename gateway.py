@@ -5,34 +5,14 @@ from flask import Flask, request, jsonify
 
 server = Flask(__name__)
 
-AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "https://localhost:5173")
-# AUTH_SERVICE_URL = 'https://localhost:5173'
-if not AUTH_SERVICE_URL.startswith(('http://', 'https://')):
-    AUTH_SERVICE_URL = "http://" + AUTH_SERVICE_URL
+from routes.auth_back import authBack_bp
+from routes.auth_front import authFront_bp
+from routes.catch_all import catch_all_bp
 
-@server.route('/', methods=['GET'])
-def root():
-    try:
-        response = requests.get(f"{AUTH_SERVICE_URL}/")
-        return response.content, response.status_code
-    except requests.exceptions.RequestException as e:
-        return jsonify({"error": str(e)}), 500
-    
-@server.route('/login', methods=['GET','POST'])
-def login():
-    try:
-        response = requests.get(f"{AUTH_SERVICE_URL}/login")
-        return response.content, response.status_code
-    except requests.exceptions.RequestException as e:
-        return jsonify({"error": str(e)}), 500
-    
-@server.route('/register', methods=['GET','POST'])
-def register():
-    try:
-        response = requests.get(f"{AUTH_SERVICE_URL}/register")
-        return response.content, response.status_code
-    except requests.exceptions.RequestException as e:
-        return jsonify({"error": str(e)}), 500
+
+server.register_blueprint(authFront_bp, url_prefix='')
+server.register_blueprint(authBack_bp, url_prefix='')
+server.register_blueprint(catch_all_bp, url_prefix='')
 
 if __name__ == "__main__":
     server.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080)))
